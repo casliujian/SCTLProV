@@ -214,7 +214,7 @@ module Seq_Prover : Prover =
 				print_endline (s^": "^(str_modl_fml modl.var_list (nnf_fml)));
 				pre_process_merges (select_sub_fmls (sub_fmls nnf_fml "1"));
 				let b = (prove (Cont (State_set.empty, Formula.subst_s (nnf_fml) (SVar "ini") (State modl.init_assign), 0, "1", (fun () -> Basic true), (fun () -> Basic false))) modl) in
-					print_endline (s ^ " is " ^ (if b then "true, proof output to \"output.out\"." else "false, counterexample output to \""^outname^"\".")); 
+					print_endline (s ^ " is " ^ (if b then "true, proof output to \""^outname^"\"." else "false, counterexample output to \""^outname^"\".")); 
 					output_result b s sequents (if b then proof else counterexample) out modl.var_list; 
 					output_string out "***********************************ouput complete**************************************";
 					flush out; 
