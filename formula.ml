@@ -126,6 +126,18 @@ let select_sub_fmls fml_levl_tbl =
 	| _ -> false) in
 	Hashtbl.iter (fun a b -> if (filter b = false) then Hashtbl.remove fml_levl_tbl a else ()) fml_levl_tbl; fml_levl_tbl
 
+let rec ias_in_fml fml = 
+	match fml with
+	| And (fml1, fml2) -> (ias_in_fml fml1) @ (ias_in_fml fml2)
+	| Or (fml1, fml2) -> (ias_in_fml fml1) @ (ias_in_fml fml2)
+	| AX (x, fml1, State ia) -> [ia]
+	| EX (x, fml1, State ia) -> [ia]
+	| AF (x, fml1, State ia) -> [ia]
+	| EG (x, fml1, State ia) -> [ia]
+	| AR (x, y, fml1, fml2, State ia) -> [ia]
+	| EU (x, y, fml1, fml2, State ia) -> [ia]
+	| _ -> []
+
 
 
 

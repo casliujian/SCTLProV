@@ -4,7 +4,7 @@ open Yojson
 type message = 
     | Create_session of string * string * string
     | Remove_session of string
-    | Add_node of string * node
+    | Add_node of string * string * string * string
     | Remove_node of string * string
     | Add_edge of string * string * string * string
     | Remove_edge of string * string * string
@@ -46,9 +46,10 @@ let wait_to_send msg =
     Condition.signal sending_conditional;
     Mutex.unlock sending_mutex
 
-let create_session (session: session) = wait_to_send (Create_session (session.name, (str_proof_kind session.kind) ^" "^session.name, "Tree"))
+let create_proof_session session = wait_to_send (Create_session (session, session, "Tree"))
+let create_state_session session = wait_to_send (Create_session (session, session, "DiGraph"))
 let remove_session sid = wait_to_send (Remove_session sid)
-let add_node sid node = wait_to_send (Add_node (sid, node))
+let add_node sid nid label state = wait_to_send (Add_node (sid, nid, label, state))
 let remove_node sid nid = wait_to_send (Remove_node (sid, nid))
 let add_edge sid from_id to_id label = wait_to_send (Add_edge (sid, from_id, to_id, label))
 let remove_edge sid from_id to_id = wait_to_send (Remove_edge (sid, from_id, to_id))
@@ -72,14 +73,14 @@ let json_of_msg (msg:message) =
             ("type", `String "remove_session");
             ("session_id", `String sid)
         ]
-    | Add_node (sid, node) ->
+    | Add_node (sid, nid, label, state) ->
         `Assoc [
             ("type", `String "add_node");
             ("session_id", `String sid);
             ("node", `Assoc [
-                ("id", `String node.id);
-                ("label", `String (str_label node.label));
-                ("state", `String (str_node_state node.state))
+                ("id", `String nid);
+                ("label", `String (label));
+                ("state", `String (state))
             ])
         ]
     | Remove_node (sid, nid) ->
@@ -195,20 +196,9 @@ let sending cout =
         end
     done
 
-let parse msg = 
-    match msg with
-    | Highlight_node (sid, nid) -> 
-        printf "Highlight node %s in session %s\n" nid sid;
-        flush stdout;
-        feedback_ok sid
-    | Feedback_ok sid ->
-        printf "Feedback OK received from %s\n" sid;
-        flush stdout
-    | _ -> 
-        printf "Not supposed to recieve this message\n";
-        flush stdout
 
-let receiving cin = 
+
+let receiving cin parse = 
     let running = ref true in
     let log_out = open_out log_file in
     while !running do
@@ -221,15 +211,15 @@ let receiving cin =
         parse msg
     done
 
-let start_send_receive cin cout =
-    ignore (Thread.create (fun cin -> receiving cin) cin);
+let start_send_receive cin cout parse =
+    ignore (Thread.create (fun cin -> receiving cin parse) cin);
     ignore (Thread.create (fun cout -> sending cout) cout)
 
-let init ip_addr = 
+let init ip_addr parse = 
     let i,o = Unix.open_connection (Unix.ADDR_INET (Unix.inet_addr_of_string ip_addr, 3333)) in
     vin := i;
     vout := o;
-    start_send_receive !vin !vout
+    start_send_receive !vin !vout parse
 
 
 

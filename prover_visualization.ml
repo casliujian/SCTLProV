@@ -1,6 +1,7 @@
 open Term
 open Formula
 open Modul
+open Communicate
 
 type continuation = 
 	| Basic of bool
@@ -12,6 +13,8 @@ exception Error_proving_atomic
 exception Unable_to_prove
 
 (*functions for the output*)
+let proof_session_id = ref ""
+let state_session_id = ref ""
 let sequents = Hashtbl.create 100
 let proof = Hashtbl.create 100
 let counterexample = Hashtbl.create 100
@@ -56,6 +59,11 @@ let add_premises prf fid pid =
 		Hashtbl.replace prf fid (pid :: (Hashtbl.find prf fid))
 	with Not_found -> Hashtbl.add prf fid [pid]
 
+let state_tbl = Hashtbl.create 100
+let state_struct_tbl = Hashtbl.create 100
+let current_state_id = ref 0
+let new_state_id () = incr current_state_id; !current_state_id 
+
 (* produce new continuations *)
 let rec make_ax_cont gamma s fml id levl sl contl contr = 
 	let rec tmp_ax_cont sts = 
@@ -89,6 +97,19 @@ let rec make_eu_cont gamma s s' fml1 fml2 id levl sl contl contr =
 		State_set.fold (fun a b -> let nid = new_id() in (fun () -> Cont (gamma, EU (s, s', fml1, fml2, (State a)), (nid), levl, (fun () -> add_premises proof id nid; contl ()), (fun () -> add_premises counterexample id nid; b())))) sts contr in
 	tmp_eu_cont sl
 
+let add_next_to_state_tbl nexts = 
+	State_set.iter (
+				fun a ->
+					try
+						let id_of_a = Hashtbl.find state_tbl a in
+						Hashtbl.replace state_struct_tbl (Hashtbl.find state_tbl sa) (id_of_a :: (Hashtbl.find state_struct_tbl sa))
+					with Not_found -> begin
+						let new_id_a = new_state_id() in
+						Hashtbl.add state_tbl a new_id_a;
+						Hashtbl.add state_struct_tbl new_id_a [];
+						Hashtbl.add state_struct_tbl (Hashtbl.find state_tbl sa) (new_id_a :: (Hashtbl.find state_struct_tbl sa))
+					end
+			) nexts
 let rec prove cont modl = 
 	match cont with
 	| Basic b -> b
@@ -124,27 +145,37 @@ let rec prove cont modl =
 			and id2 = new_id() in
 			prove (Cont (State_set.empty, fml1, (id1), (levl^"1"), (fun () -> add_premises proof id (id1); contl()), (fun () -> Cont (State_set.empty, fml2, (id2), (levl^"2"), (fun () -> add_premises proof id (id2); contl()), (fun () -> add_premises counterexample id (id1); add_premises counterexample id (id2); contr()))))) modl
 		| AX (s, fml1, State sa) -> 
-			prove ((make_ax_cont State_set.empty s fml1 id (levl^"1") ((next sa modl.transitions modl.var_index_tbl)) contl contr)()) modl
+			let nexts = ((next sa modl.transitions modl.var_index_tbl)) in
+			add_next_to_state_tbl nexts;
+			prove ((make_ax_cont State_set.empty s fml1 id (levl^"1") nexts contl contr)()) modl
 		| EX (s, fml1, State sa) -> 
-			prove ((make_ex_cont State_set.empty s fml1 id (levl^"1") ((next sa modl.transitions modl.var_index_tbl)) contl contr)()) modl
+			let nexts = ((next sa modl.transitions modl.var_index_tbl)) in
+			add_next_to_state_tbl nexts;
+			prove ((make_ex_cont State_set.empty s fml1 id (levl^"1") nexts contl contr)()) modl
 		| AF (s, fml1, State sa) -> 
 			if State_set.mem sa gamma then 
 				(add_merge merges levl gamma; prove (contr()) modl) 
 			else 
 				(if state_in_merge merges levl sa then 
 					prove (contr()) modl 
-				else 
+				else begin
 					let id1 = new_id() in
-					prove (Cont (State_set.empty, Formula.subst_s fml1 s (State sa), (id1), (levl^"1"), (fun () -> add_premises proof id (id1); contl()), (fun () -> add_premises counterexample id (id1); (make_af_cont (State_set.add sa gamma) s fml1 id levl (((next sa modl.transitions modl.var_index_tbl))) contl contr)()))) modl)
+					let nexts = ((next sa modl.transitions modl.var_index_tbl)) in
+					add_next_to_state_tbl nexts;
+					prove (Cont (State_set.empty, Formula.subst_s fml1 s (State sa), (id1), (levl^"1"), (fun () -> add_premises proof id (id1); contl()), (fun () -> add_premises counterexample id (id1); (make_af_cont (State_set.add sa gamma) s fml1 id levl nexts contl contr)()))) modl)
+				end
 		| EG (s, fml1, State sa) -> 
 			if State_set.mem sa gamma then 
 				(add_merge merges levl gamma; prove (contl()) modl) 
 			else
 				(if state_in_merge merges levl sa then 
 					prove (contl()) modl 
-				else 
+				else begin
 					let id1 = new_id() in
-					prove (Cont (State_set.empty, Formula.subst_s fml1 s (State sa), (id1), (levl^"1"), (fun () -> add_premises proof id (id1);(make_eg_cont (State_set.add sa gamma) s fml1 id levl (((next sa modl.transitions modl.var_index_tbl))) contl contr)()), (fun () -> add_premises counterexample id (id1); contr()))) modl)
+					let nexts = ((next sa modl.transitions modl.var_index_tbl)) in
+					add_next_to_state_tbl nexts;
+					prove (Cont (State_set.empty, Formula.subst_s fml1 s (State sa), (id1), (levl^"1"), (fun () -> add_premises proof id (id1);(make_eg_cont (State_set.add sa gamma) s fml1 id levl nexts contl contr)()), (fun () -> add_premises counterexample id (id1); contr()))) modl)
+				end
 		| AR(x, y, fml1, fml2, State sa) -> 
 			if (State_set.is_empty gamma) then 
 				Hashtbl.replace merges levl State_set.empty 
@@ -155,9 +186,13 @@ let rec prove cont modl =
 			else 
 				(if state_in_merge merges levl sa then 
 					prove (contl()) modl 
-				else
+				else begin
 					let id1 = new_id() and id2 = new_id() in
-					prove (Cont (State_set.empty, Formula.subst_s fml2 y (State sa), (id2), (levl^"2"), (fun () -> Cont (State_set.empty, Formula.subst_s fml1 x (State sa), (id1), (levl^"1"), (fun () -> add_premises proof id (id1); add_premises proof id (id2); contl()), (fun () -> add_premises counterexample id (id1); (make_ar_cont (State_set.singleton sa) x y fml1 fml2 id levl (((next sa modl.transitions modl.var_index_tbl))) contl contr)()))), (fun () -> add_premises counterexample id (id+2); contr()))) modl)
+					let nexts = ((next sa modl.transitions modl.var_index_tbl)) in
+					add_next_to_state_tbl nexts;
+					prove (Cont (State_set.empty, Formula.subst_s fml2 y (State sa), (id2), (levl^"2"), (fun () -> Cont (State_set.empty, Formula.subst_s fml1 x (State sa), (id1), (levl^"1"), (fun () -> add_premises proof id (id1); add_premises proof id (id2); contl()), (fun () -> add_premises counterexample id (id1); (make_ar_cont (State_set.singleton sa) x y fml1 fml2 id levl nexts contl contr)()))), (fun () -> add_premises counterexample id (id+2); contr()))) modl
+				end
+				)
 		| EU (s, s', fml1, fml2, State sa) -> 
 			if (State_set.is_empty gamma) then 
 				Hashtbl.replace merges levl State_set.empty 
@@ -167,13 +202,62 @@ let rec prove cont modl =
 			else
 				(if state_in_merge merges levl sa then 
 					prove (contr()) modl 
-				else
+				else begin
 					let id1 = new_id() and id2 = new_id() in
-					((prove (Cont (State_set.empty, Formula.subst_s fml2 s' (State sa), (id2), (levl^"2"), (fun () -> add_premises proof id (id2); contl()), (fun () -> Cont (State_set.empty, Formula.subst_s fml1 s (State sa), (id1), (levl^"1"), (fun () -> add_premises proof id (id1); (make_eu_cont (State_set.singleton sa) s s' fml1 fml2 id levl (((next sa modl.transitions modl.var_index_tbl))) contl contr)()), (fun () -> add_premises counterexample id (id1); add_premises counterexample id (id2); contr()))))) modl)))  
+					let nexts = ((next sa modl.transitions modl.var_index_tbl)) in
+					add_next_to_state_tbl nexts;
+					((prove (Cont (State_set.empty, Formula.subst_s fml2 s' (State sa), (id2), (levl^"2"), (fun () -> add_premises proof id (id2); contl()), (fun () -> Cont (State_set.empty, Formula.subst_s fml1 s (State sa), (id1), (levl^"1"), (fun () -> add_premises proof id (id1); (make_eu_cont (State_set.singleton sa) s s' fml1 fml2 id levl nexts contl contr)()), (fun () -> add_premises counterexample id (id1); add_premises counterexample id (id2); contr()))))) modl))
+				end
+				)  
 		| _ -> raise Unable_to_prove
 		)
 
-let rec prove_model modl out outname = 
+let send_proof_tree id vt = 
+	proof_session_id := id;
+	create_proof_session id;
+	let rec str_sequent seqt = 
+		(let gamma = fst seqt and fml = snd seqt in
+			let str_gamma = (State_set.fold (fun a b -> (str_modl_state vt a)^"\r\n"^b) gamma "") in
+			(if str_gamma = "" then "" else str_gamma^"") ^"|- "^(str_modl_fml vt fml)) in
+	Hashtbl.iter (fun a b -> add_node id a (str_sequent b) "Proved") sequents;
+	let tmp_fmls = ref ["0"] in
+	while !tmp_fmls <> [] do
+		try
+		let tmp_is = Hashtbl.find proof (List.hd !tmp_fmls) in
+		List.iter (fun a -> add_edge id ((List.hd !tmp_fmls)) (a) "") tmp_is;
+		tmp_fmls := tmp_is @ (List.tl !tmp_fmls) 
+		with Not_found -> (tmp_fmls := List.tl !tmp_fmls)
+	done
+
+
+let send_state_graph id vt = 
+	state_session_id := id;
+	create_state_session id;
+	Hashtbl.iter (fun a b -> add_state id (string_of_int b) (str_modl_state vt a) "") state_tbl;
+	Hashtbl.iter (fun a b ->
+		List.iter (fun c -> add_edge id (string_of_int a) (string_of_int c) "") b
+	) state_struct_tbl
+
+let parse msg = 
+    match msg with
+    | Highlight_node (sid, nid) -> 
+        printf "Highlight node %s in session %s\n" nid sid;
+		let fml = snd (Hashtbl.find sequents nid) in
+		let ias = ias_in_fml fml in
+		List.iter (fun a ->
+			let id_a = Hashtbl.find state_tbl a in
+			highlight_node !state_session_id (string_of_int id_a)
+		) ias;
+        flush stdout;
+        feedback_ok sid
+    | Feedback_ok sid ->
+        printf "Feedback OK received from %s\n" sid;
+        flush stdout
+    | _ -> 
+        printf "Not supposed to recieve this message\n";
+        flush stdout
+
+let rec prove_model modl visualize_addr = 
 	let spec_lst = modl.spec_list in
 	let rec prove_lst lst = 
 	match lst with
@@ -182,13 +266,20 @@ let rec prove_model modl out outname =
 		((let nnf_fml = nnf fml in 
 			print_endline (s^": "^(str_modl_fml modl.var_list (nnf_fml)));
 			pre_process_merges (select_sub_fmls (sub_fmls nnf_fml "1"));
+			let init_state_id = new_state_id() in
+			Hashtbl.add state_tbl modl.init_assign init_state_id;
+			Hashtbl.add state_struct_tbl init_state_id [];
 			let b = (prove (Cont (State_set.empty, Formula.subst_s (nnf_fml) (SVar "ini") (State modl.init_assign), 0, "1", (fun () -> Basic true), (fun () -> Basic false))) modl) in
-				print_endline (s ^ " is " ^ (if b then "true, proof output to \""^outname^"\"." else "false, counterexample output to \""^outname^"\".")); 
-				output_result b s sequents (if b then proof else counterexample) out modl.var_list; 
+				(*print_endline (s ^ " is " ^ (if b then "true, proof output to \""^outname^"\"." else "false, counterexample output to \""^outname^"\".")); *)
+				(*output_result b s sequents (if b then proof else counterexample) out modl.var_list; 
 				output_string out "***********************************ouput complete**************************************";
-				flush out; 
-				Hashtbl.clear sequents; 
-				Hashtbl.clear proof);
+				flush out; *)
+				Communicate.init visualize_addr parse;
+				send_proof_tree s modl.var_list;
+				send_state_graph modl.name
+				(*Hashtbl.clear sequents; 
+				Hashtbl.clear proof*)
+				);
 				prove_lst lst') in prove_lst spec_lst
 
 

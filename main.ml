@@ -17,7 +17,7 @@ let input_paras pl =
 	get_para_from_stdin 2 pl
 
 
-let choose_to_prove bdd output_file input_file = 
+let choose_to_prove bdd output_file visualize_addr input_file = 
 	try
 		let (modl_tbl, modl) = Parser.input Lexer.token (Lexing.from_channel (open_in input_file)) in
 		let modl_tbl1 = Hashtbl.create (Hashtbl.length modl_tbl) 
@@ -27,25 +27,29 @@ let choose_to_prove bdd output_file input_file =
 		let modl3 = modul223 modl2 in
 		let modl4 = modul324 modl3 in
 		let modl5 = modul425 modl4 in
-		match (bdd, output_file) with
-		| (true, None) -> Prover_bdd.prove_model modl5
-		| (false, None) -> Prover.prove_model modl5
-		| (_, Some filename) -> 
+		match (bdd, output_file, visualize_addr) with
+		| (true, None, "") -> Prover_bdd.prove_model modl5
+		| (false, None, "") -> Prover.prove_model modl5
+		| (_, Some filename, "") -> 
 			let out = open_out filename in
 			Prover_output.Seq_Prover.prove_model modl5 out filename;
 			close_out out
+		| (_, None, _) ->
+			Prover_visualization.prove_model modl5 visualize_addr
 	with Parsing.Parse_error -> print_endline ("parse error at line: "^(string_of_int (!(Lexer.line_num))))
 	
 
 let main () = 
 	let use_bdd = ref false 
-	and output_file = ref None in
+	and output_file = ref None 
+	and visualize_addr = ref "" in
 	Arg.parse
 		[
 			"-bdd", Arg.Unit (fun () -> use_bdd := true), " Whether using BDDs to store state sets";
 			"-output", Arg.String (fun s -> output_file := Some s), " The output file";
+			"-visualize_addr", Arg.String (fun s -> visualize_addr := s), " IP address of the vmdv server";
 		]
-		(fun s -> choose_to_prove !use_bdd !output_file s)
+		(fun s -> choose_to_prove !use_bdd !output_file !visualize_addr s)
 		"Usage: sctl [-bdd] [-output <filename>] <filename>"
 
 let _ = 
