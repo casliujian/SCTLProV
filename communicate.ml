@@ -8,7 +8,7 @@ type message =
     | Remove_node of string * string
     | Add_edge of string * string * string * string
     | Remove_edge of string * string * string
-    | Change_node_state of string * string * node_state
+    | Change_node_state of string * string * string
     | Highlight_node of string * string
     | Feedback_ok of string
     | Feedback_fail of string * string
@@ -109,7 +109,7 @@ let json_of_msg (msg:message) =
             ("type", `String "change_node_state");
             ("session_id", `String sid);
             ("node_id", `String nid);
-            ("new_state", `String (str_node_state new_state))
+            ("new_state", `String (new_state))
         ]
     | Highlight_node (sid, nid) ->
         `Assoc [
@@ -187,8 +187,12 @@ let sending cout =
                 | _ -> ()
             end;*)
             let json_msg = json_of_msg !msg in
-            Yojson.Basic.to_channel cout json_msg;
+            (*Yojson.Basic.to_channel cout json_msg;*)
+            output_string cout ((Yojson.Basic.to_string json_msg));
             flush cout;
+            output_string cout "\n";
+            flush cout;
+            Thread.delay (0.001);
             output_string log_out "JSON data sent:\n";
             output_string log_out (Yojson.Basic.to_string json_msg);
             output_string log_out "\n";
@@ -202,7 +206,9 @@ let receiving cin parse =
     let running = ref true in
     let log_out = open_out log_file in
     while !running do
-        let json_msg = Yojson.Basic.from_channel cin in
+        let json_str = input_line cin in
+        let json_msg = Yojson.Basic.from_string json_str in
+        (*let json_msg = Yojson.Basic.from_channel cin in*)
         output_string log_out "JSON data received:\n";
         output_string log_out (Yojson.Basic.to_string json_msg);
         output_string log_out "\n";
@@ -212,14 +218,15 @@ let receiving cin parse =
     done
 
 let start_send_receive cin cout parse =
-    ignore (Thread.create (fun cin -> receiving cin parse) cin);
-    ignore (Thread.create (fun cout -> sending cout) cout)
+    (*ignore (Thread.create (fun cin -> receiving cin parse) cin);*)
+    ignore (Thread.create (fun cout -> sending cout) cout);
+    receiving cin parse
 
-let init ip_addr parse = 
+let init ip_addr = 
     let i,o = Unix.open_connection (Unix.ADDR_INET (Unix.inet_addr_of_string ip_addr, 3333)) in
     vin := i;
     vout := o;
-    start_send_receive !vin !vout parse
+    i,o
 
 
 

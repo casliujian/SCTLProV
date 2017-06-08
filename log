@@ -1,0 +1,209 @@
+JSON data received:
+{"session_id":"find","type":"unpick_node","node_id":"0"}
+"find","graph_type":"Tree"}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"0","label":"|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=false;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"5","label":"{farmer:=false;wolf:=false;goat:=false;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"0","to_id":"5","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"1","label":"|- safe({farmer:=false;wolf:=false;goat:=false;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"0","to_id":"1","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"5","label":"{farmer:=false;wolf:=false;goat:=false;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"12","label":"{farmer:=true;wolf:=false;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"5","to_id":"12","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"9","label":"|- safe({farmer:=true;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"5","to_id":"9","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"12","label":"{farmer:=true;wolf:=false;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"17","label":"{farmer:=false;wolf:=false;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"12","to_id":"17","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"13","label":"|- safe({farmer:=false;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"12","to_id":"13","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"17","label":"{farmer:=false;wolf:=false;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"21","label":"{farmer:=true;wolf:=true;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"17","to_id":"21","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"18","label":"|- safe({farmer:=true;wolf:=true;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"17","to_id":"18","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"21","label":"{farmer:=true;wolf:=true;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"28","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"21","to_id":"28","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"25","label":"|- safe({farmer:=false;wolf:=true;goat:=false;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"21","to_id":"25","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"28","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"34","label":"{farmer:=true;wolf:=true;goat:=false;cabbage:=true}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"28","to_id":"34","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"30","label":"|- safe({farmer:=true;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"28","to_id":"30","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"34","label":"{farmer:=true;wolf:=true;goat:=false;cabbage:=true}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"38","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=true}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"34","to_id":"38","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"35","label":"|- safe({farmer:=false;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"34","to_id":"35","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"38","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=true}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"40","label":"|- okay({farmer:=true;wolf:=true;goat:=true;cabbage:=true})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"38","to_id":"40","label":""}
+JSON data sent:
+{"type":"create_session","session_id":"River_Crossing","session_descr":"River_Crossing","graph_type":"DiGraph"}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"8","label":"{farmer:=true;wolf:=false;goat:=true;cabbage:=true}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"5","label":"{farmer:=true;wolf:=true;goat:=false;cabbage:=false}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"1","label":"{farmer:=false;wolf:=false;goat:=false;cabbage:=false}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"16","label":"{farmer:=false;wolf:=true;goat:=true;cabbage:=true}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"7","label":"{farmer:=false;wolf:=false;goat:=true;cabbage:=false}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"3","label":"{farmer:=true;wolf:=false;goat:=false;cabbage:=true}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"15","label":"{farmer:=false;wolf:=false;goat:=true;cabbage:=true}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"14","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=true}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"6","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=false}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"13","label":"{farmer:=false;wolf:=false;goat:=false;cabbage:=true}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"12","label":"{farmer:=true;wolf:=true;goat:=false;cabbage:=true}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"4","label":"{farmer:=true;wolf:=false;goat:=true;cabbage:=false}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"10","label":"{farmer:=false;wolf:=true;goat:=true;cabbage:=false}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"2","label":"{farmer:=true;wolf:=false;goat:=false;cabbage:=false}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"11","label":"{farmer:=true;wolf:=true;goat:=true;cabbage:=true}","state":""}}
+JSON data sent:
+{"type":"add_node","session_id":"River_Crossing","node":{"id":"9","label":"{farmer:=true;wolf:=true;goat:=true;cabbage:=false}","state":""}}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"7","to_id":"9","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"7","to_id":"8","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"7","to_id":"4","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"7","to_id":"8","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"7","to_id":"4","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"7","to_id":"4","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"10","to_id":"11","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"10","to_id":"9","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"10","to_id":"9","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"5","to_id":"6","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"5","to_id":"1","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"5","to_id":"1","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"6","to_id":"9","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"6","to_id":"12","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"6","to_id":"5","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"6","to_id":"5","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"9","to_id":"10","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"9","to_id":"6","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"9","to_id":"7","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"9","to_id":"6","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"9","to_id":"7","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"11","to_id":"16","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"11","to_id":"10","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"11","to_id":"14","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"11","to_id":"15","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"11","to_id":"10","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"11","to_id":"14","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"11","to_id":"15","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"5","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"4","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"3","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"2","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"4","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"3","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"2","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"3","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"2","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"1","to_id":"2","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"12","to_id":"14","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"12","to_id":"6","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"12","to_id":"13","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"12","to_id":"6","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"12","to_id":"13","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"14","to_id":"11","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"14","to_id":"12","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"4","to_id":"7","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"4","to_id":"1","label":""}
+JSON data sent:
+{"type":"add_edge","session_id":"River_Crossing","from_id":"4","to_id":"1","label":""}

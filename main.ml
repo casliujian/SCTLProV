@@ -1,3 +1,4 @@
+open Printf
 open Term 
 open Formula
 open Modul
@@ -30,12 +31,20 @@ let choose_to_prove bdd output_file visualize_addr input_file =
 		match (bdd, output_file, visualize_addr) with
 		| (true, None, "") -> Prover_bdd.prove_model modl5
 		| (false, None, "") -> Prover.prove_model modl5
-		| (_, Some filename, "") -> 
+		| (_, Some filename, _) -> 
 			let out = open_out filename in
 			Prover_output.Seq_Prover.prove_model modl5 out filename;
 			close_out out
 		| (_, None, _) ->
-			Prover_visualization.prove_model modl5 visualize_addr
+			if visualize_addr <> "" then begin
+				printf "prove with visualization\n";
+				flush stdout;
+				Prover_visualization.prove_model modl5 visualize_addr
+			end else begin
+				printf "input arguments not valid\n";
+				flush stdout
+			end
+			
 	with Parsing.Parse_error -> print_endline ("parse error at line: "^(string_of_int (!(Lexer.line_num))))
 	
 
