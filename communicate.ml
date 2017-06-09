@@ -10,6 +10,8 @@ type message =
     | Remove_edge of string * string * string
     | Change_node_state of string * string * string
     | Highlight_node of string * string
+    | Unhighlight_node of string * string
+    | Clear_color of string
     | Feedback_ok of string
     | Feedback_fail of string * string
 
@@ -55,6 +57,8 @@ let add_edge sid from_id to_id label = wait_to_send (Add_edge (sid, from_id, to_
 let remove_edge sid from_id to_id = wait_to_send (Remove_edge (sid, from_id, to_id))
 let change_node_state sid nid state = wait_to_send (Change_node_state (sid, nid, state))
 let highlight_node sid nid = wait_to_send (Highlight_node (sid, nid))
+let unhighlight_node sid nid = wait_to_send (Unhighlight_node (sid, nid))
+let clear_color sid = wait_to_send (Clear_color sid)
 let feedback_ok sid = wait_to_send (Feedback_ok sid)
 let feedback_fail sid error_msg = wait_to_send (Feedback_fail (sid, error_msg))
 
@@ -117,6 +121,17 @@ let json_of_msg (msg:message) =
             ("session_id", `String sid);
             ("node_id", `String nid)
         ]
+    | Unhighlight_node (sid, nid) ->
+        `Assoc [
+            ("type", `String "unhighlight_node");
+            ("session_id", `String sid);
+            ("node_id", `String nid)
+        ]
+    | Clear_color sid ->
+        `Assoc [
+            ("type", `String "clear_color");
+            ("session_id", `String sid)
+        ]
     | Feedback_ok sid ->
         `Assoc [
             ("type", `String "feedback");
@@ -164,7 +179,12 @@ let msg_of_json json =
                     Feedback_fail ((get_string_of_json (get_json_of_key "session_id" str_json_list)), (get_string_of_json (get_json_of_key "error_msg" str_json_list)))
                     (*printf "Fail from session %s: %s\n" (get_string_of_json (get_json_of_key "session_id" str_json_list)) (get_string_of_json (get_json_of_key "error_msg" str_json_list));*)
                 (*flush stdout*)
-            | _ as s -> printf "not supposed to be received by coqv: %s\n" s; exit 1
+
+            | "unhighlight_node" ->
+                Unhighlight_node ((get_string_of_json (get_json_of_key "session_id" str_json_list)), (get_string_of_json (get_json_of_key "node_id" str_json_list)))
+            | "clear_color" ->
+                Clear_color (get_string_of_json (get_json_of_key "session_id" str_json_list))
+            | _ as s -> printf "not supposed to be received by the prover: %s\n" s; exit 1
         end
     | _ -> printf "%s can not be a message\n" (Yojson.Basic.to_string json); exit 1
 

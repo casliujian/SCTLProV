@@ -269,6 +269,8 @@ let parse msg =
         printf "Not supposed to recieve this message\n";
         flush stdout
 
+
+
 let rec prove_model modl visualize_addr = 
 	let spec_lst = modl.spec_list in
 	let rec prove_lst lst = 
@@ -295,11 +297,3 @@ let rec prove_model modl visualize_addr =
 				Hashtbl.clear proof*)
 				);
 				prove_lst lst') in prove_lst spec_lst
-
-
-
-
-
-
-
-
