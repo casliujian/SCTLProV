@@ -5,3 +5,5 @@ lexer.ml
 parser.ml
 sctl
 sctl.exe
+log
+*.log
