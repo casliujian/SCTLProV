@@ -1,8 +1,8 @@
 JSON data received:
-{"session_id":"find","type":"highlight_node","node_id":"12"}
-d","graph_type":"Tree"}
-JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"0","label":"|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=false;cabbage:=false})","state":"Proved"}}
+{"session_id":"find","type":"clear_color"}
+JSON data received:
+{"session_id":"find","type":"clear_color"}
+e":"add_node","session_id":"find","node":{"id":"0","label":"|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=false;cabbage:=false})","state":"Proved"}}
 JSON data sent:
 {"type":"add_node","session_id":"find","node":{"id":"5","label":"{farmer:=false;wolf:=false;goat:=false;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
 JSON data sent:
@@ -208,6 +208,10 @@ JSON data sent:
 JSON data sent:
 {"type":"add_edge","session_id":"River_Crossing","from_id":"4","to_id":"1","label":""}
 JSON data sent:
-{"type":"highlight_node","session_id":"River_Crossing","node_id":"7"}
+{"type":"feedback","session_id":"find","status":"OK"}
+JSON data sent:
+{"type":"clear_color","session_id":"River_Crossing"}
 JSON data sent:
 {"type":"feedback","session_id":"find","status":"OK"}
+JSON data sent:
+{"type":"clear_color","session_id":"River_Crossing"}

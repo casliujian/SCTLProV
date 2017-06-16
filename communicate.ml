@@ -15,6 +15,21 @@ type message =
     | Feedback_ok of string
     | Feedback_fail of string * string
 
+let str_msg msg = 
+    match msg with
+    | Create_session (sid, session_descr, graph_type) -> "Create_session ("^sid^", "^ session_descr^", "^graph_type^")"
+    | Remove_session (sid) -> "Remove_session "^sid
+    | Add_node (sid, nid, label, state) -> "Add_node ("^sid^", "^nid^", "^label^", "^state^")"
+    | Remove_node (sid, nid) -> "Remove_node ("^sid^", "^nid^")"
+    | Add_edge (sid, from_id, to_id, label) -> "Add_edge ("^sid^", "^from_id^", "^to_id^","^label^")"
+    | Remove_edge (sid, from_id, to_id) -> "Remove_edge ("^sid^", "^from_id^","^to_id^")"
+    | Change_node_state (sid, nid, state) -> "Change_node_state ("^sid^", "^nid^", "^state^")"
+    | Highlight_node (sid, nid) -> "Highlight_node ("^sid^", "^nid^")"
+    | Unhighlight_node (sid, nid) -> "Unhighlight_node ("^sid^", "^nid^")"
+    | Clear_color sid -> "Clear_color "^sid
+    | Feedback_ok sid -> "Feedback_ok "^sid
+    | Feedback_fail (sid, error_msg) -> "Feedback_fail ("^sid^", "^error_msg^")"
+
 
 (*let protocol_version_no = "20170502"*)
 let sending_queue = Queue.create ()
@@ -24,23 +39,6 @@ let log_file = "log"
 
 let vin = ref stdin
 let vout = ref stdout
-
-
-(*let receiving_queue = Queue.create ()*)
-
-(*let handshake cin cout = 
-    output_string cout protocol_version_no;
-    flush cout;
-    let opponent_version_no = read_line() in
-    if protocol_version_no = opponent_version_no then begin
-        print_endline "Protocol match, handshake success.";
-        true    
-    end
-    else begin
-        printf "Error: protocol version %s not match" opponent_version_no;
-        flush stdout;
-        false
-    end*)
 
 let wait_to_send msg = 
     Mutex.lock sending_mutex;

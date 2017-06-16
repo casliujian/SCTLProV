@@ -253,6 +253,7 @@ let send_state_graph id vt =
 let parse msg = 
     match msg with
     | Highlight_node (sid, nid) -> 
+		feedback_ok sid;
         printf "Highlight node %s in session %s\n" nid sid;
 		let fml = snd (Hashtbl.find sequents (int_of_string nid)) in
 		let ias = ias_in_fml fml in
@@ -260,13 +261,28 @@ let parse msg =
 			let id_a = Hashtbl.find state_tbl a in
 			highlight_node !state_session_id (string_of_int id_a)
 		) ias;
-        flush stdout;
-        feedback_ok sid
+        flush stdout
+	| Unhighlight_node (sid, nid) ->
+		feedback_ok sid;
+        printf "Unhighlight node %s in session %s\n" nid sid;
+		let fml = snd (Hashtbl.find sequents (int_of_string nid)) in
+		let ias = ias_in_fml fml in
+		List.iter (fun a ->
+			let id_a = Hashtbl.find state_tbl a in
+			unhighlight_node !state_session_id (string_of_int id_a)
+		) ias;
+        flush stdout
+        
     | Feedback_ok sid ->
         printf "Feedback OK received from %s\n" sid;
         flush stdout
+
+	| Clear_color sid ->
+		feedback_ok sid;
+		let new_sid = if sid = !proof_session_id then !state_session_id else !proof_session_id in
+		clear_color new_sid
     | _ -> 
-        printf "Not supposed to recieve this message\n";
+        printf "Not supposed to recieve this message %s\n" (str_msg msg);
         flush stdout
 
 
