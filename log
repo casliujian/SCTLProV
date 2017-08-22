@@ -1,36 +1,27 @@
 JSON data received:
-{"session_id":"find","type":"clear_color"}
-JSON data received:
-{"session_id":"find","type":"highlight_node","node_id":"13"}
-JSON data received:
-{"session_id":"find","type":"unhighlight_node","node_id":"13"}
-JSON data received:
-{"session_id":"find","type":"clear_color"}
+{"session_id":"find","type":"highlight_node","node_id":"12"}
 JSON data received:
 {"session_id":"find","type":"highlight_node","node_id":"17"}
 JSON data received:
-{"session_id":"find","type":"clear_color"}
+{"session_id":"find","type":"highlight_node","node_id":"38"}
 JSON data received:
-{"session_id":"find","type":"clear_color"}
+{"session_id":"find","type":"highlight_node","node_id":"0"}
 JSON data received:
-{"session_id":"find","type":"unhighlight_node","node_id":"17"}
-JSON data received:
-{"session_id":"find","type":"highlight_node","node_id":"17"}
-JSON data received:
-{"session_id":"find","type":"clear_color"}
-JSON data received:
-{"session_id":"find","type":"unhighlight_node","node_id":"17"}
-JSON data received:
-{"session_id":"find","type":"highlight_node","node_id":"17"}
-JSON data received:
-{"session_id":"find","type":"clear_color"}
-JSON data received:
-{"session_id":"find","type":"unhighlight_node","node_id":"17"}
+{"session_id":"find","type":"highlight_node","node_id":"5"}
 JSON data received:
 {"session_id":"find","type":"highlight_node","node_id":"21"}
 JSON data received:
-{"session_id":"find","type":"clear_color"}
-ession_id":"find","node":{"id":"12","label":"{farmer:=true;wolf:=false;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+{"session_id":"find","type":"highlight_node","node_id":"34"}
+JSON data received:
+{"session_id":"find","type":"highlight_node","node_id":"28"}
+t:
+{"type":"add_node","session_id":"find","node":{"id":"1","label":"|- safe({farmer:=false;wolf:=false;goat:=false;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_edge","session_id":"find","from_id":"0","to_id":"1","label":""}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"5","label":"{farmer:=false;wolf:=false;goat:=false;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+JSON data sent:
+{"type":"add_node","session_id":"find","node":{"id":"12","label":"{farmer:=true;wolf:=false;goat:=true;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"5","to_id":"12","label":""}
 JSON data sent:
@@ -38,9 +29,9 @@ JSON data sent:
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"5","to_id":"9","label":""}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"12","label":"{farmer:=true;wolf:=false;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"12","label":"{farmer:=true;wolf:=false;goat:=true;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=false;goat:=true;cabbage:=false})","state":"Proved"}}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"17","label":"{farmer:=false;wolf:=false;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=false})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"17","label":"{farmer:=false;wolf:=false;goat:=true;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=false})","state":"Proved"}}
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"12","to_id":"17","label":""}
 JSON data sent:
@@ -48,9 +39,9 @@ JSON data sent:
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"12","to_id":"13","label":""}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"17","label":"{farmer:=false;wolf:=false;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=false})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"17","label":"{farmer:=false;wolf:=false;goat:=true;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=false})","state":"Proved"}}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"21","label":"{farmer:=true;wolf:=true;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=false})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"21","label":"{farmer:=true;wolf:=true;goat:=true;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=false})","state":"Proved"}}
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"17","to_id":"21","label":""}
 JSON data sent:
@@ -58,9 +49,9 @@ JSON data sent:
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"17","to_id":"18","label":""}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"21","label":"{farmer:=true;wolf:=true;goat:=true;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=false})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"21","label":"{farmer:=true;wolf:=true;goat:=true;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=false})","state":"Proved"}}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"28","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"28","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"21","to_id":"28","label":""}
 JSON data sent:
@@ -68,9 +59,9 @@ JSON data sent:
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"21","to_id":"25","label":""}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"28","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=false}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"28","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=false} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"34","label":"{farmer:=true;wolf:=true;goat:=false;cabbage:=true}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"34","label":"{farmer:=true;wolf:=true;goat:=false;cabbage:=true} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"28","to_id":"34","label":""}
 JSON data sent:
@@ -78,9 +69,9 @@ JSON data sent:
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"28","to_id":"30","label":""}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"34","label":"{farmer:=true;wolf:=true;goat:=false;cabbage:=true}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"34","label":"{farmer:=true;wolf:=true;goat:=false;cabbage:=true} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=false;wolf:=true;goat:=false;cabbage:=true})","state":"Proved"}}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"38","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=true}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=true})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"38","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=true} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=true})","state":"Proved"}}
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"34","to_id":"38","label":""}
 JSON data sent:
@@ -88,7 +79,7 @@ JSON data sent:
 JSON data sent:
 {"type":"add_edge","session_id":"find","from_id":"34","to_id":"35","label":""}
 JSON data sent:
-{"type":"add_node","session_id":"find","node":{"id":"38","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=true}\r\n|- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=true})","state":"Proved"}}
+{"type":"add_node","session_id":"find","node":{"id":"38","label":"{farmer:=false;wolf:=true;goat:=false;cabbage:=true} |- EU(x, y, (safe(x)), (okay(y)), {farmer:=true;wolf:=true;goat:=true;cabbage:=true})","state":"Proved"}}
 JSON data sent:
 {"type":"add_node","session_id":"find","node":{"id":"40","label":"|- okay({farmer:=true;wolf:=true;goat:=true;cabbage:=true})","state":"Proved"}}
 JSON data sent:
@@ -226,15 +217,7 @@ JSON data sent:
 JSON data sent:
 {"type":"feedback","session_id":"find","status":"OK"}
 JSON data sent:
-{"type":"clear_color","session_id":"River_Crossing"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"clear_color","session_id":"River_Crossing"}
+{"type":"highlight_node","session_id":"River_Crossing","node_id":"7"}
 JSON data sent:
 {"type":"feedback","session_id":"find","status":"OK"}
 JSON data sent:
@@ -242,39 +225,15 @@ JSON data sent:
 JSON data sent:
 {"type":"feedback","session_id":"find","status":"OK"}
 JSON data sent:
-{"type":"clear_color","session_id":"River_Crossing"}
+{"type":"highlight_node","session_id":"River_Crossing","node_id":"11"}
 JSON data sent:
 {"type":"feedback","session_id":"find","status":"OK"}
 JSON data sent:
-{"type":"clear_color","session_id":"River_Crossing"}
+{"type":"highlight_node","session_id":"River_Crossing","node_id":"1"}
 JSON data sent:
 {"type":"feedback","session_id":"find","status":"OK"}
 JSON data sent:
-{"type":"unhighlight_node","session_id":"River_Crossing","node_id":"9"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"highlight_node","session_id":"River_Crossing","node_id":"9"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"clear_color","session_id":"River_Crossing"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"unhighlight_node","session_id":"River_Crossing","node_id":"9"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"highlight_node","session_id":"River_Crossing","node_id":"9"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"clear_color","session_id":"River_Crossing"}
-JSON data sent:
-{"type":"feedback","session_id":"find","status":"OK"}
-JSON data sent:
-{"type":"unhighlight_node","session_id":"River_Crossing","node_id":"9"}
+{"type":"highlight_node","session_id":"River_Crossing","node_id":"4"}
 JSON data sent:
 {"type":"feedback","session_id":"find","status":"OK"}
 JSON data sent:
@@ -282,4 +241,8 @@ JSON data sent:
 JSON data sent:
 {"type":"feedback","session_id":"find","status":"OK"}
 JSON data sent:
-{"type":"clear_color","session_id":"River_Crossing"}
+{"type":"highlight_node","session_id":"River_Crossing","node_id":"14"}
+JSON data sent:
+{"type":"feedback","session_id":"find","status":"OK"}
+JSON data sent:
+{"type":"highlight_node","session_id":"River_Crossing","node_id":"12"}

@@ -225,7 +225,7 @@ let send_proof_tree id vt =
 	Hashtbl.iter (fun a b -> add_node id (string_of_int a) (str_sequent b) "Proved") sequents;*)
 	let rec str_sequent seqt = 
 		(let gamma = fst seqt and fml = snd seqt in
-			let str_gamma = (State_set.fold (fun a b -> (str_modl_state vt a)^"\r\n"^b) gamma "") in
+			let str_gamma = (State_set.fold (fun a b -> (str_modl_state vt a)^" "^b) gamma "") in
 			(if str_gamma = "" then "" else str_gamma^"") ^"|- "^(str_modl_fml vt fml)) in
 	let tmp_fmls = ref [0] in
 	while !tmp_fmls <> [] do
