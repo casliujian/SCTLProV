@@ -127,6 +127,7 @@ let parse_error s = print_endline s
 %token <bool>B
 
 //%left Add Minus Mult Ando Oro Nego Mod Neg Equal And Or Scalar
+%nonassoc DotDot
 %left Or
 %left And
 %left Oro
@@ -134,7 +135,8 @@ let parse_error s = print_endline s
 %left Add Minus
 %left Mult
 %left Equal Non_equal LT GT LE GE Mod
-%left Nego
+%left Nego Neg
+%left Dot
 
 
 %start input
@@ -319,7 +321,7 @@ dnested_var: Id Dot Id	{Nested_vars (Vars $1, Vars $3)}
 	| Id LB2 dexp RB2 Dot Id LB2 dexp RB2	{Nested_vars (Vars_index ($1, $3), Vars_index ($6, $8))}
 	| Id Dot dnested_var		{Nested_vars (Vars $1, $3)}
 	| Id LB2 dexp RB2 Dot dnested_var	{Nested_vars (Vars_index ($1, $3), $6)}
-	| LB1 dnested_var RB1	{$2}
+//	| LB1 dnested_var RB1	{$2}
 ;
 
 init_decl: Init LB3 inis RB3
@@ -397,7 +399,7 @@ nested_var: Id Dot Id	{Nested_vars (Vars $1, Vars $3)}
 	| Id LB2 exp RB2 Dot Id LB2 exp RB2	{Nested_vars (Vars_index ($1, $3), Vars_index ($6, $8))}
 	| Id Dot nested_var		{Nested_vars (Vars $1, $3)}
 	| Id LB2 exp RB2 Dot nested_var	{Nested_vars (Vars_index ($1, $3), $6)}
-	| LB1 nested_var RB1	{$2}
+//	| LB1 nested_var RB1	{$2}
 ;
 
 trans_decl: Transition LB3 trans RB3	

@@ -7,3 +7,4 @@ sctl
 sctl.exe
 log
 *.log
+*.output

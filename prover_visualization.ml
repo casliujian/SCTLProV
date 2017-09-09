@@ -299,7 +299,7 @@ let rec prove_model modl visualize_addr =
 			let init_state_id = new_state_id() in
 			Hashtbl.add state_tbl modl.init_assign init_state_id;
 			Hashtbl.add state_struct_tbl init_state_id [];
-			let b = (prove (Cont (State_set.empty, Formula.subst_s (nnf_fml) (SVar "ini") (State modl.init_assign), 0, "1", (fun () -> Basic true), (fun () -> Basic false))) modl) in
+			print_endline (s^": "^(string_of_bool (prove (Cont (State_set.empty, Formula.subst_s (nnf_fml) (SVar "ini") (State modl.init_assign), 0, "1", (fun () -> Basic true), (fun () -> Basic false))) modl)));
 				(*print_endline (s ^ " is " ^ (if b then "true, proof output to \""^outname^"\"." else "false, counterexample output to \""^outname^"\".")); *)
 				(*output_result b s sequents (if b then proof else counterexample) out modl.var_list; 
 				output_string out "***********************************ouput complete**************************************";
